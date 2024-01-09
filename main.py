@@ -11,7 +11,7 @@ money = float(input('Please enter a money amount: '))
 print('--------------------------------')
 
 PIZZAS = ('Pizza Hawaiana', 'Pizza Siciliana', 'Pizza cuatro quesos')
-print(type(PIZZAS))
+
 PRICE_PIZZAS = (27.648, 37.400, 38.700)
 
 EXTRA_INGREDIENTS = ('Extra queso', 'Extra mozarela', 'Extra pollo')
@@ -47,9 +47,20 @@ if option_extra_ingredient == 'yes':
     for p, v in zip(EXTRA_INGREDIENTS, PRICE_EXTRA_INGREDIENTS):
         print(f'{contador}) {p} - costo: {v}')
         contador += 1
-    eleccion = input('What would you like to: ')
-    if eleccion == '1':
-        print(f'Su total es de: {PIZZAS}')
-        pass
 elif option_extra_ingredient == 'no':
-    pass
+    print('-- Su pedido --\n'
+          f'El total es de: {PRICE_PIZZAS[selected_pizza_order]}'
+          f'Resta: {PRICE_PIZZAS[selected_pizza_order] - {money}}')
+else:
+    print('Esa opción no existe')
+
+while True:
+    choise = []
+    chosen_option_extra_ingredient = input('\nPlease enter your choice: '
+                                           ).lower()
+    choise.append(chosen_option_extra_ingredient)
+    option_exit = input('If you want to exit write "exit": ').lower()
+    if option_exit == 'exit':
+        break
+
+print(choise)
