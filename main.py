@@ -18,25 +18,33 @@ EXTRA_INGREDIENTS = ('Extra queso', 'Extra mozarela', 'Extra pollo')
 
 PRICE_EXTRA_INGREDIENTS = (3000, 2500, 3200)
 
-contador = 1
 
-for p, v in zip(PIZZAS, PRICE_PIZZAS):
-    print(f'{contador}) {p} - costo: {v}')
-    contador += 1
+def menu_order():
+    cunter_menu = 1
+
+    for p, v in zip(PIZZAS, PRICE_PIZZAS):
+        print(f'{cunter_menu}) {p} - costo: {v}')
+        cunter_menu += 1
+
+
+menu_order()
 
 print('--------------------------------')
-
 selected_pizza_order = int(input('Por favor ingrese la opcion que desea: '))
 
-if selected_pizza_order == 1:
-    print(f'El total hasta el momento es de: {PRICE_PIZZAS[0]}')
-elif selected_pizza_order == 2:
-    print(f'El total hasta el momento es de: {PRICE_PIZZAS[1]}')
-elif selected_pizza_order == 3:
-    print(f'El total hasta el momento es de: {PRICE_PIZZAS[2]}')
-else:
-    print('Esa opcion no existe.')
 
+def selected_pizza(option):
+    if option == 1:
+        print(f'El total hasta el momento es de: {PRICE_PIZZAS[0]}')
+    elif option == 2:
+        print(f'El total hasta el momento es de: {PRICE_PIZZAS[1]}')
+    elif option == 3:
+        print(f'El total hasta el momento es de: {PRICE_PIZZAS[2]}')
+    else:
+        print('Esa opcion no existe.')
+
+
+selected_pizza(selected_pizza_order)
 print('--------------------------------')
 
 option_extra_ingredient = input('Do you want to add extra ingredient'
