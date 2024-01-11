@@ -7,68 +7,114 @@ print('    ____     _                             _         \n'
 print('--------------------------------')
 
 money = float(input('Please enter a money amount: '))
+total_money = 0
+order = []
 
-print('--------------------------------')
+# Pizzas
+PIZZA_HAWAINA: float = 27.648
+PIZZA_SICILIANA: float = 37.400
+FOUR_CHEESE_PIZZA: float = 38700
 
-PIZZAS = ('Pizza Hawaiana', 'Pizza Siciliana', 'Pizza cuatro quesos')
-
-PRICE_PIZZAS = (27.648, 37.400, 38.700)
-
-EXTRA_INGREDIENTS = ('Extra queso', 'Extra mozarela', 'Extra pollo')
-
-PRICE_EXTRA_INGREDIENTS = (3000, 2500, 3200)
-
-
-def menu_order():
-    cunter_menu = 1
-
-    for p, v in zip(PIZZAS, PRICE_PIZZAS):
-        print(f'{cunter_menu}) {p} - costo: {v}')
-        cunter_menu += 1
+# Extra ingredients
+EXTRA_CHEESE = 3000
+EXTRA_MOZALERA = 2500
+EXTRA_CHICKEN = 3200
 
 
-menu_order()
+def menu_order(money, total_money):
+    while True:
+        # Print Menu
+        print(f'1- Pizza Hawaina {PIZZA_HAWAINA}$')
+        print(f'2- Pizza Siciliana {PIZZA_SICILIANA}$')
+        print(f'3- Four cheese pizza {FOUR_CHEESE_PIZZA}$ ')
 
-print('--------------------------------')
-selected_pizza_order = int(input('Por favor ingrese la opcion que desea: '))
+        selected_pizza_order = int(input('Por favor ingrese la opcion'
+                                         'que desea: '))
+
+        match selected_pizza_order:
+            case 1:
+                print('Select the Pizza Hawaina.'
+                      f'\ntotal payable {PIZZA_HAWAINA}$')
+                money -= PIZZA_HAWAINA
+                print(f'Fits you - {round(money, 2)}$.')
+                total_money += PIZZA_HAWAINA
+                order.append(f'Pizza Hawaina - {PIZZA_HAWAINA}$')
+                break
+            case 2:
+                print('Select the Pizza Siciliana.'
+                      f'\ntotal payable {PIZZA_SICILIANA}')
+                money -= PIZZA_SICILIANA
+                print(f'Fits you - {round(money, 2)}$')
+                total_money += PIZZA_SICILIANA
+                order.append(f'Pizza Siciliana - {PIZZA_SICILIANA}')
+                break
+            case 3:
+                print('Select the Four Cheese Pizza.'
+                      f'\ntotal payable {FOUR_CHEESE_PIZZA}')
+                money -= FOUR_CHEESE_PIZZA
+                print(f'Fits you - {round(money, 2)}$')
+                total_money += FOUR_CHEESE_PIZZA
+                order.append(f'Four Cheese Pizza - {FOUR_CHEESE_PIZZA}')
+                break
+            case _:
+                print('Incorrect option, select one that is correct (1,2,3).')
 
 
-def selected_pizza(option):
-    if option == 1:
-        print(f'El total hasta el momento es de: {PRICE_PIZZAS[0]}')
-    elif option == 2:
-        print(f'El total hasta el momento es de: {PRICE_PIZZAS[1]}')
-    elif option == 3:
-        print(f'El total hasta el momento es de: {PRICE_PIZZAS[2]}')
-    else:
-        print('Esa opcion no existe.')
+menu_order(money, total_money)
 
 
-selected_pizza(selected_pizza_order)
-print('--------------------------------')
+def menu_extra_ingredients(money, total_money):
+    print(f'1- Extra Cheese - {EXTRA_CHEESE}$')
+    print(f'2- Extra Mozalera - {EXTRA_MOZALERA}$')
+    print(f'3- Extra Chicken - {EXTRA_CHICKEN}$')
+    print('4- Add nothing extra and pay.')
 
-option_extra_ingredient = input('Do you want to add extra ingredient'
-                                '(Yes or NO): ').lower()
+    option_extra_ingredient = input('Do you want to add extra ingredient: ')
 
-if option_extra_ingredient == 'yes':
-    contador = 1
-    for p, v in zip(EXTRA_INGREDIENTS, PRICE_EXTRA_INGREDIENTS):
-        print(f'{contador}) {p} - costo: {v}')
-        contador += 1
-elif option_extra_ingredient == 'no':
-    print('-- Su pedido --\n'
-          f'El total es de: {PRICE_PIZZAS[selected_pizza_order]}'
-          f'Resta: {PRICE_PIZZAS[selected_pizza_order] - {money}}')
+    match option_extra_ingredient:
+        case 1:
+            print('You have selected extra cheese.'
+                  f'\nExtra payable {EXTRA_CHEESE}$.')
+            money -= EXTRA_CHEESE
+            total_money += EXTRA_CHEESE
+            print(f"Total payable: {total_money}$.")
+            print(f"Fits you {round(money, 2)}$.")
+            order.append(f"Extra Cheese - {EXTRA_CHEESE}$")
+        case 2:
+            print('You have selected extra mozarela.'
+                  f'\nExtra payable {EXTRA_MOZALERA}$.')
+            money -= EXTRA_MOZALERA
+            total_money += EXTRA_MOZALERA
+            print(f"Total payable: {total_money}$.")
+            print(f"Fits you {round(money, 2)}$.")
+            order.append(f"Extra Mozarela - {EXTRA_MOZALERA}$")
+        case 3:
+            print('You have selected extra chicken.'
+                  f'\nExtra payable {EXTRA_CHICKEN}$.')
+            money -= EXTRA_CHICKEN
+            total_money += EXTRA_CHICKEN
+            print(f"Total payable: {total_money}$.")
+            print(f"Fits you {round(money, 2)}$.")
+            order.append(f"Extra Chicken - {EXTRA_CHICKEN}$")
+        case 4:
+            print('Okay, no extra is added')
+            break
+        case _:
+            print('Incorrect option, select one that is correct (1,2,3).')
+
+
+menu_extra_ingredients(money, total_money)
+
+if total_money <= money:
+    print("\n--- You Order ---")
+
+    print(f"Total your order: {total_money}$.")
+    print(f"Your change: {money}$.\n")
+
+    for i in order:
+        print(f"-{i}.")
+
+    print("\nEnojoy your meal!")
+# Si el dinero no le llega, le indica que no le llega y no imprime el ticket.
 else:
-    print('Esa opción no existe')
-
-while True:
-    choise = []
-    chosen_option_extra_ingredient = input('\nPlease enter your choice: '
-                                           ).lower()
-    choise.append(chosen_option_extra_ingredient)
-    option_exit = input('If you want to exit write "exit": ').lower()
-    if option_exit == 'exit':
-        break
-
-print(choise)
+    print("You don't have the money for all that. Please start over.")
